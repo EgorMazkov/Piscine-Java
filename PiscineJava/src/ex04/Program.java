@@ -99,9 +99,49 @@ public class Program {
                 break ;
             }
         }
+        checkDuableNumberSymbol(symbol, numbertSymbol, fromMaxToMin,allSybmol);
         print(symbol, fromMaxToMin, numbertSymbol);
     }
 
+    public static void checkDuableNumberSymbol(char[] symbol, int[] numberSymbol, int[] fromMaxToMin, int allSymbol) {
+        int i = 1;
+        int[] massOne = new int[allSymbol];
+        int[] massTwo = new int[allSymbol];
+        int max = 0;
+        int numberDoubleNumSymbol = 0;
+        int q = 0;
+        int lengNumberSymbol = numberSymbol.length;
+
+        while (q != allSymbol) {
+            if (i == q) {
+                i++;
+            }
+            if (numberSymbol[i] == numberSymbol[q]) {
+                numberDoubleNumSymbol++;
+                massOne[max] = i;
+                massTwo[max] = q;
+                max++;
+                i++;
+            } else if (i != allSymbol) {
+                i++;
+                continue ;
+            } else {
+                i = 0;
+                q++;
+            }
+        }
+        while (numberDoubleNumSymbol != 0) {
+            if (symbol[massOne[i]] < symbol[massTwo[i]]) {
+                char str = symbol[massOne[i]];
+                symbol[massOne[i]] = symbol[massTwo[i]];
+                symbol[massTwo[i]] = str;
+                numberDoubleNumSymbol--;
+            } else {
+                numberDoubleNumSymbol--;
+            }
+        }
+
+    }
     public static void print(char[] symbol, int[] fromMaxToMin, int[] numbertSymbol) {
         int i = 0;
         while (i != fromMaxToMin.length) {

@@ -1,6 +1,5 @@
 package ex03;
 
-import org.jetbrains.annotations.NotNull;
 
 import java.util.Scanner;
 
@@ -14,14 +13,14 @@ public class Program {
         while (week != 19) {
             scan = scanner.nextLine();
             if (scan.equals("42")) {
-                print(minWeekTest, week);
+                printMessage(minWeekTest, week);
                 System.exit(0);
             }
             if (scan.equals("Week " + week)) {
                 minWeekTest += checkMinNumberts(scanner, week);
                 week++;
                 scanner.nextLine();
-                continue ;
+                continue;
             } else {
                 IllegalArgument();
             }
@@ -29,42 +28,48 @@ public class Program {
     }
 
     public static void IllegalArgument() {
-            System.err.println("theIllegalArgument");
-            System.exit(-1);
+        System.err.println("theIllegalArgument");
+        System.exit(-1);
     }
 
     public static int checkMinNumberts(Scanner scanner, int week) {
         int min = 100;
         int num = scanner.nextInt();
         int i = 0;
+        if (num > 9 || num < 1) {
+            System.out.println("Error"); // TODO exception
+        }
         while (i != 5) {
             if (min > num) {
                 min = num;
             }
             if (i != 4) {
                 num = scanner.nextInt();
+                if (num > 9 || num < 1) {
+                    System.out.println("Error"); // TODO exception
+                }
+                i++;
+                continue;
             }
-            i++;
-            continue ;
-        }
-        if (week > 1) {
-            for (int q = 1; q < week; ++q) {
-                min *= 10;
+            if (week > 1) {
+                for (int q = 1; q < week; ++q) {
+                    min *= 10;
+                }
             }
+            return min;
         }
-        return min;
-    }
 
-    public static void print(int minWeekTest, int week) {
-        int res = 0;
-        for (int i = 1; i != week; i++) {
-            res = minWeekTest % 10;
-            minWeekTest /= 10;
-            System.out.print("Week "+ i + " ");
-            for (int q = 0; q != res; q++) {
-                System.out.print("=");
+        public static void printMessage(int minWeekTest,int week){
+            int res = 0;
+            for (int i = 1; i != week; i++) {
+                res = minWeekTest % 10;
+                minWeekTest /= 10;
+                System.out.print("Week " + i + " ");
+                for (int q = 0; q != res; q++) {
+                    System.out.print("=");
+                }
+                System.out.println(">");
             }
-            System.out.println(">");
         }
     }
 }
