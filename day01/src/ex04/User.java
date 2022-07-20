@@ -1,12 +1,13 @@
-package ex02;
+package ex04;
 
-import static ex02.Program.printError;
+import static ex04.Program.printError;
 
 public class User {
 
     private  int idUser;
     private String name;
     private long balanc;
+    private TransactionsList list;
 
     User(String name, long balanc) {
         this.idUser = UserIdsGenerator.getInstance().generatorId();
@@ -16,6 +17,15 @@ public class User {
         } else {
             printError("negative balance cannot be");
         }
+        this.list = new TransactionsLinkedList();
+    }
+
+    public void setList(TransactionsList list) {
+        this.list = list;
+    }
+
+    public TransactionsList getList() {
+        return list;
     }
 
     public String getName() {

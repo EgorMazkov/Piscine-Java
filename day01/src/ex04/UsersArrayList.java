@@ -1,4 +1,4 @@
-package ex02;
+package ex04;
 
 public class UsersArrayList implements UsersList {
     private static int NUMBERUSER = 10;
@@ -18,6 +18,10 @@ public class UsersArrayList implements UsersList {
         }
         arrUser[numberUsers] = user;
         numberUsers++;
+    }
+
+    public int getNumberUsers() {
+        return numberUsers;
     }
 
     @Override

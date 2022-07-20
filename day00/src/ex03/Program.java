@@ -56,20 +56,16 @@ public class Program {
                     min *= 10;
                 }
             }
-            return min;
-        }
-
-        public static void printMessage(int minWeekTest,int week){
-            int res = 0;
-            for (int i = 1; i != week; i++) {
-                res = minWeekTest % 10;
-                minWeekTest /= 10;
-                System.out.print("Week " + i + " ");
-                for (int q = 0; q != res; q++) {
-                    System.out.print("=");
-                }
-                System.out.println(">");
+    public static void printMessage(int minWeekTest,int week){
+        int res = 0;
+        for (int i = 1; i != week; i++) {
+            res = minWeekTest % 10;
+            minWeekTest /= 10;
+            System.out.print("Week " + i + " ");
+            for (int q = 0; q != res; q++) {
+                System.out.print("=");
             }
+            System.out.println(">");
         }
     }
 }

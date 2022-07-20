@@ -1,7 +1,6 @@
 package ex01;
 
-import static ex00.Program.printError;
-
+import static ex01.Program.printError;
 
 public class User {
 

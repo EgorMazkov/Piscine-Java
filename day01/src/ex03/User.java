@@ -1,9 +1,7 @@
 package ex03;
 
-import ex02.UserIdsGenerator;
 
-import static ex00.Program.printError;
-
+import static ex03.Program.printError;
 
 public class User {
 
