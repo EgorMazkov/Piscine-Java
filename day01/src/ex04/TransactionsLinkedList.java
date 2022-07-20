@@ -42,6 +42,7 @@ public class TransactionsLinkedList implements TransactionsList {
                     end = temp.back;
                 }
                 size--;
+                return;
             }
             temp = temp.next;
         }
