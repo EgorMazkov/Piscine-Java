@@ -1,5 +1,7 @@
 package ex03;
 
+import ex04.TransactionNotFoundException;
+
 import java.util.UUID;
 
 public class TransactionsLinkedList implements TransactionsList {
@@ -29,19 +31,24 @@ public class TransactionsLinkedList implements TransactionsList {
     @Override
     public void deleteTransaction(UUID idTransaction) {
         Node temp = head;
-        int i = 0;
-        for (; i < size; i++) {
+        for (int i = 0; i < size; i++) {
             if (temp.data.getIdentifier().equals(idTransaction)) {
-                temp.back.next = temp.next;
-                temp.next.back = temp.back;
+                if (temp != head) {
+                    temp.back.next = temp.next;
+                }else {
+                    head = temp.next;
+                }
+                if (temp != end) {
+                    temp.next.back = temp.back;
+                } else {
+                    end = temp.back;
+                }
                 size--;
                 return;
             }
             temp = temp.next;
         }
-        if (i == size) {
-            throw new TransactionNotFoundException("Exception: id:" + idTransaction + " not found");
-        }
+        throw new TransactionNotFoundException("Exception: id:" + idTransaction + " not found");
     }
 
     @Override

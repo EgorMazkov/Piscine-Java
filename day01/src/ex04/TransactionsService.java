@@ -23,47 +23,46 @@ public class TransactionsService {
         return user.getBalanc();
     }
 
-    public void performingTransferTransaction(int idUserOne, int idUserTwo, int amount) {
+    public void performingTransferTransaction(int sending, int receiving, int amount) {
         UUID idTransaction;
+        String categorySendingReceiving;
+        int temp = 0;
 
-        User userOne = list.retrieveUserById(idUserOne);
+        User sendingUser = list.retrieveUserById(sending);
 
-        User userTwo = list.retrieveUserById(idUserTwo);
+        User receivingUser = list.retrieveUserById(receiving);
 
-        if (amount <= 0) {
-            if (userTwo.getBalanc() + amount < 0) {
-                throw new IllegalAccessException("Exception: when you try to withdraw, the balance will be negative");
+        if (amount > 0) {
+            if (sendingUser.getBalanc() - amount < 0) {
+                throw new IllegalTransactionException("Exception: insufficient funds");
             }
-            userTwo.setBalanc(userTwo.getBalanc() - amount);
-            userOne.setBalanc(userOne.getBalanc() - amount);
-            Transaction transactionUserOne = new Transaction(userTwo, userOne, amount * -1, SENDING);
-            Transaction transactionUserTwo = new Transaction(userOne, userTwo, amount, RECEIVING);
-            userTwo.getList().addTransaction(transactionUserOne);
-            idTransaction = transactionUserOne.getIdentifier();
-            transactionUserTwo.setIdentifier(idTransaction);
-            userOne.getList().addTransaction(transactionUserTwo);
-            return;
+            sendingUser.setBalanc(sendingUser.getBalanc() - amount);
+            receivingUser.setBalanc(receivingUser.getBalanc() + amount);
+            Transaction transactionOne = new Transaction(sendingUser, receivingUser, amount * -1, SENDING);
+            Transaction transactionTwo = new Transaction(receivingUser, sendingUser, amount, RECEIVING);
+            transactionTwo.setIdentifier(transactionOne.getIdentifier());
+            sendingUser.getList().addTransaction(transactionOne);
+            receivingUser.getList().addTransaction(transactionTwo);
+        } else {
+            if (receivingUser.getBalanc() - amount < 0) {
+                throw new IllegalTransactionException("Exception: insufficient funds");
+            }
+            amount *= -1;
+            sendingUser.setBalanc(sendingUser.getBalanc() + amount);
+            receivingUser.setBalanc(receivingUser.getBalanc() -amount);
+            Transaction transactionOne = new Transaction(sendingUser, receivingUser, amount, RECEIVING);
+            Transaction transactionTwo = new Transaction(sendingUser, receivingUser, amount * -1, SENDING);
+            transactionTwo.setIdentifier(transactionOne.getIdentifier());
+            sendingUser.getList().addTransaction(transactionOne);
+            receivingUser.getList().addTransaction(transactionTwo);
         }
-
-        if (userOne.getBalanc() - amount < 0) {
-            throw new IllegalAccessException("Exception: when you try to withdraw, the balance will be negative");
-        }
-
-        userOne.setBalanc(userOne.getBalanc() - amount);
-        userTwo.setBalanc(userTwo.getBalanc() + amount);
-        Transaction transactionUserOne = new Transaction(userOne, userTwo, amount * -1, SENDING);
-        Transaction transactionUserTwo = new Transaction(userTwo, userOne, amount, RECEIVING);
-        userOne.getList().addTransaction(transactionUserOne);
-        idTransaction = transactionUserOne.getIdentifier();
-        transactionUserTwo.setIdentifier(idTransaction);
-        userTwo.getList().addTransaction(transactionUserTwo);
     }
 
     public Transaction[] retrievingTransfersOfSpecificUser(int id) {
         return list.retrieveUserById(id).getList().toArray();
     }
 
-    public void removeTransaction(UUID idTransaction, int idUser) {
+    public void     removeTransaction(UUID idTransaction, int idUser) {
         User user = list.retrieveUserById(idUser);
         TransactionsList transaction = user.getList();
         transactionsList.addTransaction(transaction.findTracsactionById(idTransaction));

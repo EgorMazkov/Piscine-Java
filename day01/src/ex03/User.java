@@ -21,6 +21,10 @@ public class User {
         this.list = new TransactionsLinkedList();
     }
 
+    public TransactionsList getList() {
+        return list;
+    }
+
     public String getName() {
         return name;
     }
@@ -48,5 +52,11 @@ public class User {
                 "Name User: " + getName() + "\n" +
                 "Balanc: " + getBalanc() + "\n" +
                 "-----------------------------------------\n");
+    }
+    @Override
+    public String toString() {
+        return "User{ id=" + this.idUser +
+                ", name='" + this.name + "'" +
+                ", balance=" + this.balanc + " }";
     }
 }

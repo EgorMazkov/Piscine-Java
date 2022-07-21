@@ -24,9 +24,6 @@ public class Transaction {
         this.sender = userTwo;
         this.transferCategory = tCategory;
         this.transferAmount = transferAmount;
-        if (transferAmount < 0) {
-            printError("Wrong data ");
-        }
         if (tCategory == Category.SENDING) {
             userTwo.setBalanc(userTwo.getBalanc() - transferAmount);
             userOne.setBalanc(userOne.getBalanc() + transferAmount);

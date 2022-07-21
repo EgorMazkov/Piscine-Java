@@ -10,9 +10,9 @@ public class Program {
         User userFour = new User("Pupa", 500);
 
         userOne.printUserData();
-        userOne.printUserData();
-        userOne.printUserData();
-        userOne.printUserData();
+        userTwo.printUserData();
+        userThree.printUserData();
+        userFour.printUserData();
     }
 
     public static void printError(String massage) {

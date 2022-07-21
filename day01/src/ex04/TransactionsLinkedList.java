@@ -31,12 +31,12 @@ public class TransactionsLinkedList implements TransactionsList {
         Node temp = head;
         for (int i = 0; i < size; i++) {
             if (temp.data.getIdentifier().equals(idTransaction)) {
-                if (temp.back != head) {
+                if (temp != head) {
                     temp.back.next = temp.next;
                 }else {
                     head = temp.next;
                 }
-                if (temp.next != end) {
+                if (temp != end) {
                     temp.next.back = temp.back;
                 } else {
                     end = temp.back;

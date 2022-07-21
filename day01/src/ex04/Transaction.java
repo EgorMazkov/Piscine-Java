@@ -24,20 +24,6 @@ public class Transaction {
         this.sender = userTwo;
         this.transferCategory = tCategory;
         this.transferAmount = transferAmount;
-
-        if (tCategory == Category.SENDING) {
-            userTwo.setBalanc(userTwo.getBalanc() - transferAmount);
-            userOne.setBalanc(userOne.getBalanc() + transferAmount);
-            return;
-        }
-        if (tCategory == Category.RECEIVING) {
-            userTwo.setBalanc(userTwo.getBalanc() - transferAmount);
-            userOne.setBalanc(userOne.getBalanc() + transferAmount);
-            return;
-        }
-        else {
-            printError("Command invalide");
-        }
     }
 
     public void setIdentifier(UUID identifier) {

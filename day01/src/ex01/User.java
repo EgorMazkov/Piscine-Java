@@ -3,12 +3,13 @@ package ex01;
 import static ex01.Program.printError;
 
 public class User {
+    private int idUser;
 
-    private  int idUser;
     private String name;
+
     private long balanc;
 
-    User(String name, long balanc) {
+    public User(String name, long balanc) {
         this.idUser = UserIdsGenerator.getInstance().generatorId();
         setName(name);
         if (balanc > 0) {
