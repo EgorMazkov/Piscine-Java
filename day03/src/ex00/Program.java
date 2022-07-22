@@ -18,6 +18,12 @@ public class Program {
         Thread hen = new Thread(new Hen(count));
         egg.start();
         hen.start();
+        try {
+            egg.join();
+            hen.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
 
         for (int i = 0; i < count; i++) {
             System.out.println("Human");
