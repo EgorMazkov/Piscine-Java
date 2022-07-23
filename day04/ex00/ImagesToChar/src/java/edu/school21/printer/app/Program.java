@@ -27,13 +27,16 @@ public class Program {
             throw new IllegalArgumentException("Exception: argument greater than one");
         }
 
-        image = ImageIO.read(new File(pathImage));
 
-        if (image == null) {
-            throw new IllegalArgumentException("Exception: image not found");
+        try {
+            image = ImageIO.read(new File(pathImage));
+            ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
+            transformation.transformation();
+        }
+        catch (IllegalArgumentException e) {
+            System.out.println("Exception: image returned null");
+            e.getMessage();
         }
 
-        ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
-        transformation.transformation();
     }
 }

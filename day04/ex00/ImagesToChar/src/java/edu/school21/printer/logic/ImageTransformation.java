@@ -14,6 +14,7 @@ public class ImageTransformation {
     public ImageTransformation(BufferedImage image, String symbolInsteadOfBlack, String symbolInsteadOfWhite) {
         this.symbolInsteadOfBlack = symbolInsteadOfBlack;
         this.symbolInsteadOfWhite = symbolInsteadOfWhite;
+        this.image = image;
         this.x = 0;
         this.y = 0;
     }
@@ -22,9 +23,9 @@ public class ImageTransformation {
     }
 
     public void transformation() {
-        for (; y != image.getHeight(); y++) {
+        for (; y < image.getHeight(); y++) {
             x = 0;
-            for (; x != image.getWidth(); x++) {
+            for (; x < image.getWidth(); x++) {
                 Color color = new Color(image.getRGB(x, y));
                 if (color.equals(Color.BLACK)) {
                     System.out.print(symbolInsteadOfBlack);

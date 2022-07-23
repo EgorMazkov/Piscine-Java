@@ -25,13 +25,16 @@ public class Program {
             throw new IllegalArgumentException("Exception: argument greater than one");
         }
 
-        image = Program.class.getClassLoader().getResourceAsStream("src/resources/image.bmp");
-
-        if (image == null) {
-            throw new IllegalArgumentException("Exception: image returned null")
+        try {
+            image = Program.class.getClassLoader().getResourceAsStream("src/resources/image.bmp");
+            ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
+            transformation.transformation();
         }
-        ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
-        transformation.transformation();
+        catch (IllegalArgumentException e) {
+            System.out.println("Exception: image returned null");
+            e.getMessage();
+        }
+        
     }
 }
 

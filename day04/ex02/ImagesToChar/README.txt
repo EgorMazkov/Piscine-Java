@@ -4,6 +4,7 @@
 #4 - Creating a project archive
 #5 - Program launch
 #6 - Deleting the library and compiled files
+#7 - Explanation
 
 #1
 mkdir lib
@@ -26,7 +27,23 @@ cp -R src/resources target
 jar -cmf src/manifest.txt target/images-to-chars-printer.jar -C target .
 
 #5
-java -jar target/images-to-chars-printer.jar --white=NONE --black=MAGENTA
+java -jar target/images-to-chars-printer.jar --white=RED --black=BLACK
+
+#5-1
+java -jar target/images-to-chars-printer.jar --white=<color> --black=<color>
 
 #6
 rm -rf target lib
+
+#7
+--white=<color> --black=<color> - Specify colors for rendering.
+Colors can only be:
+- BLACK
+- RED
+- GREEN
+- YELLOW
+- BLUE
+- MAGENTA
+- CYAN
+- WHITE
+- NONE
