@@ -22,17 +22,16 @@ public class Program {
         symbolInsteadOfWhite = args[1].substring("--white=".length());
 
         if (symbolInsteadOfBlack.length() != 1 || symbolInsteadOfWhite.length() != 1) {
-            System.out.println("Error: the number of characters exceeds one");
-            System.exit(-1);
+            throw new IllegalArgumentException("Exception: argument greater than one");
         }
 
-        image = Program.class.getClassLoader().getResourceAsStream("src/resources/it.bmp");
+        image = Program.class.getClassLoader().getResourceAsStream("src/resources/image.bmp");
 
         if (image == null) {
-            System.out.println("Error: file null");
-            System.exit(-1);
+            throw new IllegalArgumentException("Exception: image returned null")
         }
         ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
         transformation.transformation();
     }
 }
+

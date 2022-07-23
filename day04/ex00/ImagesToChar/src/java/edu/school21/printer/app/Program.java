@@ -24,11 +24,14 @@ public class Program {
         pathImage = args[2].substring("--pathImage=".length());
 
         if (symbolInsteadOfBlack.length() != 1 || symbolInsteadOfWhite.length() != 1) {
-            System.out.println("Error: the number of characters exceeds one");
-            System.exit(-1);
+            throw new IllegalArgumentException("Exception: argument greater than one");
         }
 
         image = ImageIO.read(new File(pathImage));
+
+        if (image == null) {
+            throw new IllegalArgumentException("Exception: image not found");
+        }
 
         ImageTransformation transformation = new ImageTransformation(image, symbolInsteadOfBlack, symbolInsteadOfWhite);
         transformation.transformation();
