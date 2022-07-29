@@ -27,4 +27,30 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", email='" + email + '\'' +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+
+        User user = (User) o;
+
+        if (getId() != user.getId()) return false;
+        return getEmail() != null ? getEmail().equals(user.getEmail()) : user.getEmail() == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = (int) (getId() ^ (getId() >>> 32));
+        result = 31 * result + (getEmail() != null ? getEmail().hashCode() : 0);
+        return result;
+    }
 }

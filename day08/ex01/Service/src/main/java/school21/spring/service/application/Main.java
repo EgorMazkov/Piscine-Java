@@ -6,10 +6,11 @@ import school21.spring.service.repositories.UsersRepository;
 
 public class Main {
     public static void main(String[] args) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("context.xml");
+        ApplicationContext context = new ClassPathXmlApplicationContext("/context.xml");
         UsersRepository usersRepository = context.getBean("usersRepositoryJdbc", UsersRepository.class);
-        System.out.println(usersRepository.findAll () );
+        System.out.println(usersRepository.findAll());
+        System.out.println("----------------------------------------");
         usersRepository = context.getBean("usersRepositoryJdbcTemplate", UsersRepository.class);
-        System.out.println(usersRepository.findAll () );
+        System.out.println(usersRepository.findAll());
     }
 }
