@@ -7,7 +7,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Main {
     public static void main(String[] args) {
         if (args.length != 1 || !args[0].startsWith("--port=")) {
-            System.err.println("Specify the server port using --port=");
+            System.err.println("<--port=>");
             System.exit(-1);
         }
 

@@ -2,9 +2,7 @@ package edu.school21.sockets.repositories;
 
 import edu.school21.sockets.models.User;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
@@ -21,7 +19,6 @@ public class UsersRepositoryImpl implements UsersRepository {
     }
 
     private static class UserRowMapper implements RowMapper<User> {
-        @Override
         public User mapRow(ResultSet rs, int i) throws SQLException {
             User user = new User();
 
@@ -34,11 +31,8 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public User findById(Long id) {
-        String sql = "SELECT * FROM server.user WHERE id =" + id;
-        User user = template.query(sql,
-                (PreparedStatementSetter) new MapSqlParameterSource().addValue("user_id", id),
-                new UserRowMapper()).stream().findAny().orElse(null);
-        return user;
+        String sql = "SELECT * FROM server.user WHERE id = ?";
+        return template.queryForObject(sql, new UserRowMapper(), id);
     }
 
     private static final class UserMapper implements RowMapper {
@@ -59,7 +53,7 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public void save(User entity) {
-        template.update("insert into server.user (user_id, user_name, user_password) values (?, ?, ?)", entity.getId(), entity.getClientName(), entity.getClientPassword());
+        template.update("insert into server.user (user_name, user_password) values (?, ?)", entity.getClientName(), entity.getClientPassword());
     }
 
     @Override
@@ -74,10 +68,11 @@ public class UsersRepositoryImpl implements UsersRepository {
 
     @Override
     public Optional<User> findByUserName(String userName) {
-        String sql = "SELECT * FROM server.user WHERE user_name = " + userName;
-        User user = template.query(sql,
-                (PreparedStatementSetter) new MapSqlParameterSource().addValue("user_name", userName),
-                new UserRowMapper()).stream().findAny().orElse(null);
-        return Optional.ofNullable(user);
+        String sql = "SELECT * FROM server.user WHERE user_name = ?";
+        try {
+            return Optional.ofNullable(template.query(sql, new UserRowMapper(), userName).get(0));
+        } catch (IndexOutOfBoundsException e) {
+            return Optional.empty();
+        }
     }
 }
